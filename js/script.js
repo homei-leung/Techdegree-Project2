@@ -18,6 +18,7 @@ FSJS project 2 - List Filter and Pagination
 ***/
 
 var fullList = document.getElementsByClassName('student-item cf');
+const displayItems = 10;
 
 /***
    Create the `showPage` function to hide all of the items in the
@@ -34,7 +35,6 @@ var fullList = document.getElementsByClassName('student-item cf');
        "invoke" the function
 ***/
 function showPage(list, page){
-  const displayItems = 10;
   let startIndex = (page * displayItems) - displayItems;
   let endIndex = (page * displayItems);
   var i;
@@ -48,16 +48,33 @@ function showPage(list, page){
   }
 }
 
-showPage(fullList, 2);
 /***
    Create the `appendPageLinks function` to generate, append, and add
    functionality to the pagination buttons.
 ***/
 
-function appendPageLinks(){
-  
-}
 
+function appendPageLinks(list){
+  let pageLinks = document.getElementById('.page').appendChild('div');
+  pageLinks.classList.add("pagination");
+  pageLinks.appendChild('ul');
+  var i;
+  for (i = 1; i <= math.ciel(list.length / displayItems); i += 1){
+      ul.appendChild(li).appendChild(a);
+      a.href = "#";
+      a.textContent = i;
+
+      a.addEventListener("click", showPage(fullList, i));
+    }
+
+  for (i = 1; i <= math.ciel(list.length / displayItems); i += 1){
+      a.classList.remove("active");
+      event.target.classList.add("active");
+    }
+  };
+
+showPage(fullList, 1);
+appendPageLinks(fullList);
 
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
