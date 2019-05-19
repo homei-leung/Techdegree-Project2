@@ -55,21 +55,32 @@ function showPage(list, page){
 
 
 function appendPageLinks(list){
-  let pageLinks = document.getElementById('.page').appendChild('div');
-  pageLinks.classList.add("pagination");
-  pageLinks.appendChild('ul');
+  let pageLinks = document.querySelector('.page');
+  pageLinks.className = "pagination";
+  let pagDiv = document.createElement('div');
+  let numPages = math.ciel(list.length / displayItems);
+  let ul = document.createElement('ul');
+  pageLinks.appendChild(pagDiv);
+  pagDiv.appendChild(ul);
   var i;
-  for (i = 1; i <= math.ciel(list.length / displayItems); i += 1){
-      ul.appendChild(li).appendChild(a);
+
+  for (i = 1; i <= numPages; i += 1){
+      let li = document.createElement('li');
+      let a = document.createElement('a');
       a.href = "#";
       a.textContent = i;
+      ul.appendChild(li);
+      li.appendChild(a);
 
-      a.addEventListener("click", showPage(fullList, i));
-    }
+      a.addEventListener("click", (e) => {
+      let links = document.getElementsByTagName('a');
+      for(var i=0; i < links.length; i += 1){
+        links[i].classList.remove("active");
+      }
+      event.target.className = "active";
+    });
 
-  for (i = 1; i <= math.ciel(list.length / displayItems); i += 1){
-      a.classList.remove("active");
-      event.target.classList.add("active");
+    showPage(list, i);
     }
   };
 
