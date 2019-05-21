@@ -3,42 +3,23 @@ Treehouse Techdegree:
 FSJS project 2 - List Filter and Pagination
 ******************************************/
 
-// Study guide for this project - https://drive.google.com/file/d/1OD1diUsTMdpfMDv677TfL1xO2CEkykSz/view?usp=sharing
-
-
 /***
-   Add your global variables that store the DOM elements you will
-   need to reference and/or manipulate.
-
-   But be mindful of which variables should be global and which
-   should be locally scoped to one of the two main functions you're
-   going to create. A good general rule of thumb is if the variable
-   will only be used inside of a function, then it can be locally
-   scoped to that function.
+Global variables fullList holds the entire list of students, while displayItems
+indicate the desired number of students to display on each page.
 ***/
 
 var fullList = document.getElementsByClassName('student-item cf');
 const displayItems = 10;
 
 /***
-   Create the `showPage` function to hide all of the items in the
-   list except for the ten you want to show.
-
-   Pro Tips:
-     - Keep in mind that with a list of 54 students, the last page
-       will only display four.
-     - Remember that the first student has an index of 0.
-     - Remember that a function `parameter` goes in the parens when
-       you initially define the function, and it acts as a variable
-       or a placeholder to represent the actual function `argument`
-       that will be passed into the parens later when you call or
-       "invoke" the function
+The showPage function calculates and shows the appropriate students for the
+current page.
 ***/
 function showPage(list, page){
   let startIndex = (page * displayItems) - displayItems;
   let endIndex = (page * displayItems);
   var i;
-  for (i = 0; i <= list.length; i += 1) {
+  for (i = 0; i < list.length; i += 1) {
     if (i >= startIndex && i < endIndex){
     list[i].style.display = 'block'
     }
@@ -49,16 +30,17 @@ function showPage(list, page){
 }
 
 /***
-   Create the `appendPageLinks function` to generate, append, and add
-   functionality to the pagination buttons.
+The appendPageLinks function dynamically creates the page buttons based on
+the list passed in. The page buttons generated function as navigation through
+the list.
 ***/
 
 
 function appendPageLinks(list){
   let pageLinks = document.querySelector('.page');
-  pageLinks.className = "pagination";
   let pagDiv = document.createElement('div');
-  let numPages = math.ciel(list.length / displayItems);
+  pagDiv.className = "pagination";
+  let numPages = Math.ceil(list.length / displayItems);
   let ul = document.createElement('ul');
   pageLinks.appendChild(pagDiv);
   pagDiv.appendChild(ul);
@@ -72,20 +54,17 @@ function appendPageLinks(list){
       ul.appendChild(li);
       li.appendChild(a);
 
-      a.addEventListener("click", (e) => {
+      a.addEventListener("click", (event) => {
       let links = document.getElementsByTagName('a');
       for(var i=0; i < links.length; i += 1){
         links[i].classList.remove("active");
       }
       event.target.className = "active";
+      let currentPage = event.target.textContent
+      showPage(list, currentPage);
     });
-
-    showPage(list, i);
     }
   };
 
 showPage(fullList, 1);
 appendPageLinks(fullList);
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
