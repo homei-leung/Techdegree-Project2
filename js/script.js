@@ -4,6 +4,20 @@ FSJS project 2 - List Filter and Pagination
 ******************************************/
 
 /***
+Search bar dynamically created.
+***/
+let h2 = document.querySelector('h2');
+let searchBar = document.createElement('div');
+searchBar.className = "student-search";
+let input = document.createElement('input');
+input.placeholder = "Search for students...";
+let button = document.createElement('button');
+button.textContent = "Search";
+searchBar.appendChild(input);
+searchBar.appendChild(button);
+h2.parentNode.insertBefore(searchBar, h2.nextSibling);
+
+/***
 Global variables fullList holds the entire list of students, while displayItems
 indicate the desired number of students to display on each page.
 ***/
@@ -68,3 +82,33 @@ function appendPageLinks(list){
 
 showPage(fullList, 1);
 appendPageLinks(fullList);
+
+/***
+Add functionality to search bar.
+Test input values to match list items. use tolowercase
+Store in a new array.
+***/
+function matchInput(searchInput, names){
+  for (i = 1; i < names.length; i += 1){
+    names[i];
+    if(searchInput.value.length !== 0 &&
+      names[i].textContent.toLowerCase().includes(searchInput.value.toLowerCase())){
+      names[i].classList.add('match');
+    }
+  }
+
+  button.addEventListener("click", (event) => {
+    let input = document.getElementById('input').textContent;
+    matchInput(input, fullList);
+    let searchResults = document.getElementsByClassName('match');
+    if(searchResults.length > 0){
+    appendPageLinks(searchResults);
+    }
+    if(searchResults.length === 0){
+      let p = document.createElement('p');
+      let page = document.querySelector('.page');
+      page.appendChild(p);
+      p.textContent = "No results."
+    }
+  });
+}
