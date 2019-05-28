@@ -98,19 +98,28 @@ query and will display "No results" if there are no matches.
 function matchInput() {
   let searchQuery = input.value.toLowerCase();
   let resultsArray = [];
+  let existingLinks = document.getElementsByTagName('a');
+  for ( i = 0; i < existingLinks.length; i += 1){
+    existingLinks[i].style.display = 'none';
+  }
+
   for (i = 0; i < studentNamesText.length; i += 1){
     if(studentNamesText[i].includes(searchQuery)){
+      fullList[i].style.display = 'block';
       resultsArray.push(fullList[i]);
     }
+    else{
+      fullList[i].style.display = 'none';
+    }
   }
-console.log(resultsArray);
+
     if(resultsArray.length == 0){
-      resultsArray[i].style.display = "none";
       let p = document.createElement('p');
       let page = document.querySelector('.page');
       page.appendChild(p);
       p.textContent = "No results."
     }
+
     showPage(resultsArray, 1);
     appendPageLinks(resultsArray);
 }
