@@ -102,6 +102,10 @@ function matchInput() {
   for ( i = 0; i < existingLinks.length; i += 1){
     existingLinks[i].style.display = 'none';
   }
+  let p = document.getElementsByTagName('p');
+  for ( i = 0; i < p.length; i += 1){
+    p[i].style.display = 'none';
+  }
 
   for (i = 0; i < studentNamesText.length; i += 1){
     if(studentNamesText[i].includes(searchQuery)){
