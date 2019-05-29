@@ -22,9 +22,9 @@ Global variables fullList holds the entire list of students, while displayItems
 indicate the desired number of students to display on each page.
 ***/
 
-var fullList = document.getElementsByClassName('student-item cf');
+const fullList = document.getElementsByClassName('student-item cf');
 const displayItems = 10;
-var i;
+let i;
 
 /***
 The showPage function calculates and shows the appropriate students for the
